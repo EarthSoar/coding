@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        ">
+
+    <!--what: 需要做什么增强-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--when: 需要在什么时机做增强(需要对那些方法做增强)-->
+    <!--需要引入tx的命名空间-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="trans"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--where: 需要在哪里增强  哪些包下的哪些类或接口中的方法-->
+    <aop:config>
+        <!--切入点-->
+        <aop:pointcut id="txPointcut" expression="execution(* tx.service.*Service.*(..))"></aop:pointcut>
+        <!--切入点 + 增强-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"></aop:advisor>
+    </aop:config>
+
+    <!--DAO交给Spring管理,并且自动注入dataSource属性-->
+    <bean id="accountDAO" class="tx.dao.impl.AccountImpl">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--Service交给Spring管理,并且自动注入dao的属性-->
+    <bean id="accountService" class="tx.service.impl.AccountServiceImpl">
+        <property name="accountDAO" ref="accountDAO"></property>
+    </bean>
+
+
+    <!--连接数据库-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+</beans>
