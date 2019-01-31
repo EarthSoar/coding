@@ -26,21 +26,26 @@ public class EmployeeDAOImpl implements IEmployeeDAO {
 
     @Override
     public void delete(Employee e) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(e);
     }
 
     @Override
     public void update(Employee e) {
-
+        Session session = sessionFactory.getCurrentSession();
+        session.update(e);
     }
 
     @Override
     public Employee get(Long id) {
-        return null;
+        return (Employee) sessionFactory.getCurrentSession().get(Employee.class,id);
     }
 
     @Override
     public List<Employee> list() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "SELECT e FROM Employee e";
+        List<Employee> list = session.createQuery(hql).list();
+        return list;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import service.IEmployeeService;
 
+import java.util.List;
+
 /**
  * @author Willing
  * @date 2019/1/30
@@ -25,5 +27,13 @@ public class EmployeeServiceTest {
         e.setName("Ss");
         e.setAge(10);
         service.save(e);
+    }
+    @Test
+    public void testList(){
+        List<Employee> list = service.list();
+        for (Employee e:
+             list) {
+            System.out.println(e);
+        }
     }
 }

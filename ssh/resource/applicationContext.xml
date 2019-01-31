@@ -61,7 +61,6 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"></aop:advisor>
     </aop:config>
 
-
     <!--配置service-->
     <bean id="employeeService" class="service.impl.EmployeeServiceImpl">
         <property name="employeeDAO" ref="employeeDAO"></property>
@@ -69,5 +68,10 @@
     <!--配置DAO-->
     <bean id="employeeDAO" class="dao.impl.EmployeeDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <!--配置Action-->
+    <bean id="employeeAction" class="action.EmployeeAction" scope="prototype">
+        <property name="employeeService" ref="employeeService"></property>
     </bean>
 </beans>
