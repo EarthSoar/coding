@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--属性占位符-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="maxActive" value="${jdbc.maxActive}"></property>
+    </bean>
+
+    <!--配置SessionFactory-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!--引用连接池-->
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.show_sql=true
+            </value>
+        </property>
+        <!--映射文件-->
+        <property name="mappingResources" value="daomain/Department.hbm.xml"></property>
+    </bean>
+
+
+    <!--配置事务-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get" read-only="true"/>
+            <tx:method name="query" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="cutPoint" expression="execution(* service.*Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="cutPoint"/>
+    </aop:config>
+
+    <!--配置DAO-->
+    <bean id="departmentDAO" class="dao.impl.DepartmentDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!--配置Service-->
+    <bean id="departmentService" class="service.impl.DepartmentServiceImpl">
+        <property name="departmentDAO" ref="departmentDAO"></property>
+    </bean>
+    <!--配置Action-->
+    <bean id="departmentAction" class="web.action.DepartmentAction" scope="prototype">
+        <property name="departmentService" ref="departmentService"></property>
+    </bean>
+</beans>
