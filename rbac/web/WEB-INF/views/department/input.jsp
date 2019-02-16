@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Willing
@@ -32,13 +33,13 @@
                 <tr>
                     <td class="ui_text_rt" width="140">部门名称</td>
                     <td class="ui_text_lt">
-                        <input type="text" name="department.name" class="ui_input_txt02"/>
+                        <s:textfield name="department.name" cssClass="ui_input_txt02"/>
                     </td>
                 </tr>
                 <tr>
                     <td class="ui_text_rt" width="140">部门代码</td>
                     <td class="ui_text_lt">
-                        <input type="text" name="department.sn" class="ui_input_txt02"/>
+                        <s:textfield name="department.sn" cssClass="ui_input_txt02"/>
                     </td>
                 </tr>
                 <tr>

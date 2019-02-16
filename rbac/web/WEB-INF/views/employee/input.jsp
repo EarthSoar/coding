@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
 <title>信息管理系统</title>
@@ -31,18 +32,18 @@
 					</td>
 				</tr>
 				<s:if test="employee.id==null">
-				<tr>
-					<td class="ui_text_rt" width="140">密码</td>
-					<td class="ui_text_lt">
-						<s:password name="employee.password" id="password" cssClass="ui_input_txt02"/>
-					</td>
-				</tr>
-				<tr>
-					<td class="ui_text_rt" width="140">验证密码</td>
-					<td class="ui_text_lt">
-						<s:password name="repassword" cssClass="ui_input_txt02"/>
-					</td>
-				</tr>
+					<tr>
+						<td class="ui_text_rt" width="140">密码</td>
+						<td class="ui_text_lt">
+							<s:password name="employee.password" id="password" cssClass="ui_input_txt02"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="ui_text_rt" width="140">验证密码</td>
+						<td class="ui_text_lt">
+							<s:password name="repassword" cssClass="ui_input_txt02"/>
+						</td>
+					</tr>
 				</s:if>
 				<tr>
 					<td class="ui_text_rt" width="140">E-mail</td>

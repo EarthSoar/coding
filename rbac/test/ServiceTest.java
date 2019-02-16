@@ -4,7 +4,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import query.EmployeeQueryObject;
 import service.IDepartmentService;
+import service.IEmployeeService;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class ServiceTest {
     @Autowired
     private IDepartmentService departmentService;
+    @Autowired
+    private IEmployeeService employeeService;
 
     @Test
     public void testSaveDept(){
@@ -35,5 +39,11 @@ public class ServiceTest {
     @Test
     public void testGet(){
         System.out.println(departmentService.get(1L));
+    }
+
+    @Test
+    public void testQuery(){
+        EmployeeQueryObject qo = new EmployeeQueryObject();
+        qo.setKeyword("小");
     }
 }

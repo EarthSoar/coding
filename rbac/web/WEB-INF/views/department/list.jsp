@@ -57,8 +57,8 @@
                         <td><s:property value="name"/> </td>
                         <td><s:property value="sn"/></td>
                         <td>
-                            <s:a action="input" namespace="/">编辑</s:a>
-                            <s:a action="delete" namespace="/">删除</s:a>
+                            <s:a action="department_input" namespace="/"><s:param name="department.id" value="id"/> 编辑</s:a>
+                            <s:a action="department_delete" namespace="/"><s:param name="department.id" value="id"/> 删除</s:a>
                         </td>
                     </tr>
                     </s:iterator>

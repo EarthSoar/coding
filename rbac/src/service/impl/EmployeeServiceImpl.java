@@ -2,6 +2,8 @@ package service.impl;
 
 import dao.IEmployeeDAO;
 import daomain.Employee;
+import lombok.Setter;
+import query.EmployeeQueryObject;
 import service.IEmployeeService;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
  */
 public class EmployeeServiceImpl implements IEmployeeService {
 
+    @Setter
     private IEmployeeDAO employeeDAO;
 
     @Override
@@ -37,5 +40,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<Employee> list() {
         return employeeDAO.list();
+    }
+
+    @Override
+    public List<Employee> query(EmployeeQueryObject qo) {
+        return employeeDAO.query(qo);
     }
 }

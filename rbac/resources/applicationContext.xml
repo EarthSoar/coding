@@ -34,11 +34,11 @@
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=org.hibernate.dialect.MySQLDialect
-                hibernate.show_sql=true
+                hibernate.hbm2ddl.auto=update
             </value>
         </property>
         <!--映射文件-->
-        <property name="mappingResources" value="daomain/Department.hbm.xml"></property>
+        <property name="mappingLocations" value="classpath:daomain/*.hbm.xml"></property>
     </bean>
 
 
@@ -61,15 +61,10 @@
     </aop:config>
 
     <!--配置DAO-->
-    <bean id="departmentDAO" class="dao.impl.DepartmentDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    <!--配置Service-->
-    <bean id="departmentService" class="service.impl.DepartmentServiceImpl">
-        <property name="departmentDAO" ref="departmentDAO"></property>
-    </bean>
+    <import resource="classpath:applicationContext-dao.xml"></import>
+    <!--配置service-->
+    <import resource="classpath:applicationContext-service.xml"></import>
     <!--配置Action-->
-    <bean id="departmentAction" class="web.action.DepartmentAction" scope="prototype">
-        <property name="departmentService" ref="departmentService"></property>
-    </bean>
+    <import resource="classpath:applicationContext-action.xml"></import>
+
 </beans>

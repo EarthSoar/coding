@@ -9,9 +9,13 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default">
-        <action name="department" class="departmentAction">
-            <result name="list">/WEB-INF/views/department/list.jsp</result>
+        <default-interceptor-ref name="paramsPrepareParamsStack"/>
+        <action name="*_*" class="{1}Action" method="{2}">
+            <result name="success" type="redirectAction">{1}</result>
+            <result name="list">/WEB-INF/views/{1}/list.jsp</result>
+            <result name="input">/WEB-INF/views/{1}/input.jsp</result>
         </action>
+
     </package>
 
 </struts>

@@ -1,6 +1,7 @@
 package dao;
 
 import daomain.Employee;
+import query.EmployeeQueryObject;
 
 import java.util.List;
 
@@ -8,10 +9,6 @@ import java.util.List;
  * @author Willing
  * @date 2019/2/11
  */
-public interface IEmployeeDAO {
-    void save(Employee e);
-    void delete(Long id);
-    void update(Employee e);
-    Employee get(Long id);
-    List<Employee> list();
+public interface IEmployeeDAO extends IGenericDAO<Employee> {
+    List<Employee> query(EmployeeQueryObject qo);
 }

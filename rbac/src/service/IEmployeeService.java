@@ -1,6 +1,7 @@
 package service;
 
 import daomain.Employee;
+import query.EmployeeQueryObject;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface IEmployeeService {
     void update(Employee e);
     Employee get(Long id);
     List<Employee> list();
+
+    List<Employee> query(EmployeeQueryObject qo);
 }
