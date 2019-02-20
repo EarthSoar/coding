@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript"></script>
+		<script type="text/javascript" src="js/dom.js"></script>
+	</head>
+	<style type="text/css">
+		.myClass{
+			background: blue;
+		}
+	</style>
+	<body>
+		<!--
+			js代码所在的位置
+			1. 建议head标签里面	
+			2. 用script标签的src属性可以导入js文件
+			3. a标签中的href属性里需要声明javascript
+		-->
+		Hello
+		<a href="javascript:alert('hello');">点我</a>
+		<a href="#" onclick="return confirm('确认要删除?')">删除</a>
+		
+		<a href="#" onclick="window.open('http://baidu.com')">打开百度</a>
+		
+		<a href="javascript:moveBy(30,20)">每次移动指定的像素</a>
+		<a href="javascript:moveTo(30,20)">把窗口的左上角移动到一个指定的坐标</a>
+		
+		
+		<a href="javascript:window.history.back();">上一页</a>
+		
+		<a href="javascript:location.reload();">重新提交</a>
+		
+		<br/>
+			
+		<div id="t">时间</div>
+
+		<input id="xx" type="text" name="hobbys" value="学习" haha="哈哈">
+		<input id="read" type="text" name="hobbys" value="游戏"  readonly="readonly">
+
+		<div id="persons">
+			<span>张三</span>
+			<span>李四</span>
+			<span>王五</span>
+		</div>
+
+		<input id="checkId" type="checkbox" checked="checked">
+
+		<p id="p1" class="myClass" style="font-size: 20px">这是一句话</p>
+	
+		<br/>
+
+		<span id="span" style="background-color: aqua">SPAN</span>
+		<div id="div1" style="background-color: yellow">DIV1</div>
+		<div id="div2" style="background-color: yellow">DIV2</div>
+		<input type="submit" value="把SPAN元素追加到DIV1上" onclick="append2Parent('span','div1');">
+		<input type="submit" value="把SPAN元素追加到DIV2上" onclick="append2Parent('span','div2');">
+		<input type="submit" value="新建SPN追加到DIV1上" onclick="appendNewEle('div1')">
+
+		<br/>
+
+		<select id="items" multiple="multiple" size="5">
+			<option id="item1">item1</option>
+			<option id="item2">item2</option>
+			<option id="item3">item3</option>
+			<option id="item5">item5</option>
+		</select>
+		<br/>
+		<input type="button" value="把item4添加到item5前" onclick="insertItem4BeforeItem5();">
+		<input type="button" value="把item4添加到item3后" onclick="insertItem4AfterItem3();">
+		<input type="button" value="删除item5" onclick="deleteItem5();">
+		<input type="button" value="替换item5为item4" onclick="replaceItem5Item4();">
+	</body>
+</html>
