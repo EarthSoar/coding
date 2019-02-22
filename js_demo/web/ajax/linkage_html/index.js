@@ -17,13 +17,12 @@ window.onload = function () {
     //当省份发生变化时
     provinceSelect.onchange = function () {
         var pid = this.value;//省份的ID
-        if(pid < 0){
-            return;
-        }
-
         //把城市的内容重新置为空
         citySelect.innerHTML = "<option value='-1'>请选择</option>";
 
+        if(pid < 0){
+            return;
+        }
         var ajax = new XMLHttpRequest();
         ajax.open("GET","/html_getCityById?pid="+pid,true);
         ajax.onreadystatechange = function () {

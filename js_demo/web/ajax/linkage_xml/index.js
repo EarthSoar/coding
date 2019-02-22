@@ -22,11 +22,12 @@ window.onload = function () {
     //=========城市option========
     provinceSelect.onchange = function () {
         var pid = this.value;
+        var citySelect = document.getElementById('citySelectId');
+        citySelect.innerHTML = "<option value='-1'>请选择</option>";
+
         if(pid < 0){
             return;
         }
-        var citySelect = document.getElementById('citySelectId');
-        citySelect.innerHTML = "<option value='-1'>请选择</option>";
 
         var ajax = new XMLHttpRequest();
         ajax.open("GET","/xml_getCityByPid?pid="+pid,true);
