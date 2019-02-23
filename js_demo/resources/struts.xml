@@ -13,5 +13,6 @@
     <package name="linkage" namespace="/" extends="struts-default">
         <action name="html_*" class="ajax.linkage.LinkageByHtmlAction" method="{1}"/>
         <action name="xml_*" class="ajax.linkage.LinkageByXmlAction" method="{1}"/>
+        <action name="json_*" class="ajax.linkage.LinkageByJsonAction" method="{1}"/>
     </package>
 </struts>
